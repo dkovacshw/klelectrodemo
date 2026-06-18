@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://dkovacshw.github.io/klelectrodemo/sitemap.xml

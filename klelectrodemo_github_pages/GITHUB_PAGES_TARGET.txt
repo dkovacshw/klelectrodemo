@@ -1,4 +1,0 @@
-GitHub user: dkovacshw
-Repository: klelectrodemo
-Preview URL: https://dkovacshw.github.io/klelectrodemo/
-Footer credit: KD -> https://github.com/dkovacshw
