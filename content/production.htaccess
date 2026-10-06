@@ -1,0 +1,50 @@
+# Apache 2.4 / cPanel. Keep this file in the domain document root.
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Preserve legacy WordPress page-ID URLs, including the former front page.
+RewriteCond %{QUERY_STRING} ^page_id=7526$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/szolgaltatasok/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=7486$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/palyazatok/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=7429$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/nagyfeszultsegu-es-erosaramu-meresek-vizsgalat-diagnosztika/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=7427$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/nagyfeszultsegu-es-erosaramu-berendezesek-gyartasa-szerelese/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=7425$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/betonhazas-transzformator-allomasok-gyartasa/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=7415$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/lemezhazas-transzformator-allomasok-gyartasa/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=2739$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=2692$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/referenciak/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=2219$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/rolunk/ [R=301,L,QSD]
+RewriteCond %{QUERY_STRING} ^page_id=2096$
+RewriteRule ^(?:index\.php)?$ https://klelectro.hu/kapcsolat/ [R=301,L,QSD]
+RewriteRule ^kezdolap/?$ https://klelectro.hu/ [R=301,L]
+# Restrict production hostname redirects so local previews stay local.
+RewriteCond %{HTTP_HOST} ^www\.klelectro\.hu$ [NC]
+RewriteRule ^ https://klelectro.hu%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^klelectro\.hu$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://klelectro.hu%{REQUEST_URI} [R=301,L]
+# Remove explicit index.html from requested URLs, not internal DirectoryIndex.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[?\s] [NC]
+RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+</IfModule>
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/xml application/xml
+</IfModule>
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+<FilesMatch "\.(css|js|webp|svg)$">
+Header set Cache-Control "public, max-age=604800"
+</FilesMatch>
+<FilesMatch "\.html$">
+Header set Cache-Control "no-cache"
+</FilesMatch>
+</IfModule>
