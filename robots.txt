@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Preview: HTML carries noindex so crawlers can read it.
